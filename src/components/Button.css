@@ -1,0 +1,29 @@
+.Button {
+    cursor: pointer;
+    border-radius: 30px;
+    width: 100%;
+    padding: 10px 0px;
+    border: none;
+
+}
+
+.Button_PRIMARY {
+    background-color: #cf5146;
+    color: white;
+
+}
+
+.Button_DELETE {
+    background-color: #666666;
+    color: white;
+
+}
+
+.Button_SEARCH {
+    background-color: #777777;
+    color: white;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+
+}
