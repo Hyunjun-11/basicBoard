@@ -35,13 +35,17 @@
 }
 
 
-
 .home .action_tab .create {
     width: 70%;
 }
 
 .home .action_tab .create button {
     font-size: 20px;
+
+}
+
+button:hover {
+    border: 1px solid;
 }
 
 .home .search {

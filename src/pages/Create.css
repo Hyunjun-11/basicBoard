@@ -1,0 +1,64 @@
+.Create {
+    display: grid;
+    gap: 20px;
+    padding: 85px;
+    text-align: start;
+
+}
+
+.Create .title {
+    display: flex;
+    font-size: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid;
+    gap: 20px;
+}
+
+.Create .title div {
+    min-width: fit-content;
+}
+
+.Create .title input {
+    border: none;
+    font-size: 18px;
+    padding: 0px 20px;
+    width: 100%;
+
+
+    background-color: #7c7575;
+}
+
+.Create .date {
+    display: flex;
+    gap: 20px;
+    font-size: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid;
+}
+
+.Create .date input {
+    padding: 0px 20px;
+    border: none;
+    font-size: 20px;
+
+    background-color: #7c7575;
+}
+
+.Create .content div {
+    font-size: 28px;
+    padding-bottom: 18px;
+}
+
+.Create .content textarea {
+    width: 95%;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 15px;
+
+    background-color: #7c7575;
+}
+
+.Create Button {
+    font-size: 25px;
+    margin-top: 80px;
+}
