@@ -1,11 +1,31 @@
-import { useParams } from "react-router-dom"
+import "./Info.css";
 
-const Info = () => {
-    const param = useParams()
+import Button from "../components/Button";
 
-    return (
-        <div>{param.id}번 글 상세페이지화면 </div>
-    )
-}
+const Info = ({ data }) => {
+  console.log(data);
+  console.log("data");
 
-export default Info
+  return (
+    <div className="Create">
+      <div className="title">
+        <div>제목</div>
+        <input name="title" value={data.title} readOnly />
+      </div>
+      <div className="date">
+        <div>날짜</div>
+        <input type="date" name="date" value={data.date} readOnly />
+      </div>
+      <div className="content">
+        <div>내용</div>
+        <textarea rows="15" readOnly value={data.content} />
+      </div>
+      <div className="button">
+        <Button type="DELETE" text="삭제하기" />
+        <Button type="PRIMARY" text="수정하기" />
+      </div>
+    </div>
+  );
+};
+
+export default Info;

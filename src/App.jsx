@@ -1,43 +1,53 @@
-import './App.css'
-import BoardList from './components/BoardList'
-import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
-import Create from './pages/Create'
-import Info from './pages/Info'
-import Button from './components/Button'
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Create from "./pages/Create";
+import Home from "./pages/Home";
+import Info from "./pages/Info";
 
-const mockData = [
-  {
-    id: 1,
-    title: "글 제목 입니다.",
-    content: "1번 글 내용입니다 ",
-    date: new Date().getTime()
-  },
-  {
-    id: 2,
-    title: "글 제목 입니다.",
-    content: "2번 글 내용입니다 ",
-    date: new Date().getTime()
-  },
-  {
-    id: 3,
-    title: "글 제목 입니다.",
-    content: "3번 글 내용입니다 ",
-    date: new Date().getTime()
-  },
-]
+import { useState } from "react";
+import Board from "./exam/Board";
+import SignUp from "./exam/SignUp";
+
 function App() {
+  const [board, setBoard] = useState([]);
+  const [id, setId] = useState();
+
+  const boardItemGetId = (id) => {
+    setId(id);
+  };
+  const board2 = board.find((item) => item.id === id);
+
+  const onCreate = (data) => {
+    const newBoard = {
+      id: board.length + 1,
+      title: data.title,
+      content: data.content,
+      date: data.date,
+    };
+    setBoard([newBoard, ...board]);
+  };
+
+  const onUpdate = (id, newData) => {
+    const updateBoard = board.map((item) => (item.id === id ? { ...item, ...newData } : item));
+    setBoard(updateBoard);
+  };
+
+  const onDelete = (id) => {
+    const deleteBoard = board.filter((item) => item.id !== id);
+    setBoard(deleteBoard);
+  };
 
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home data={mockData} />} />
-        <Route path="/info/:id" element={<Info />}></Route>
-        <Route path="/create" element={<Create />}></Route>
+        <Route path="/" element={<Home data={board} getId={boardItemGetId} />} />
+        <Route path="/board" element={<Board />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/info/:id" element={<Info data={board2} />}></Route>
+        <Route path="/create" element={<Create onCreate={onCreate} />}></Route>
       </Routes>
     </>
-
-  )
+  );
 }
 
-export default App
+export default App;

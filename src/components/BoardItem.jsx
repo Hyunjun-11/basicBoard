@@ -1,14 +1,26 @@
-import "./BoardItem.css"
+import "./BoardItem.css";
 
-const BoardItem = ({ title, content, date }) => {
+import { useNavigate } from "react-router-dom";
 
-    return (
-        <div className="Board">
-            <div className="title">{title}</div>
-            <div className="content">{content}</div>
-            <div className="date">{new Date(date).toLocaleDateString()}</div>
-        </div>
-    )
-}
+const BoardItem = ({ id, title, content, date, getId }) => {
+  const navigate = useNavigate();
+  const clickHandler = (id) => {
+    getId(id);
+    navigate(`/info/${id}`);
+  };
 
-export default BoardItem
+  return (
+    <div
+      onClick={() => {
+        clickHandler(id);
+      }}
+      className="Board"
+    >
+      <div className="title">{title}</div>
+      <div className="content">{content}</div>
+      <div className="date">{new Date(date).toLocaleDateString()}</div>
+    </div>
+  );
+};
+
+export default BoardItem;

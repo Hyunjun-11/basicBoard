@@ -1,0 +1,21 @@
+.SignUp {
+  display: grid;
+  gap: 10px;
+}
+
+.SignUp .Id {
+  display: flex;
+  gap: 20px;
+  color: white;
+  padding-left: 15px;
+}
+
+.SignUp .Pw {
+  display: flex;
+  gap: 20px;
+  color: white;
+}
+
+.SignUp button {
+  max-width: fit-content;
+}
