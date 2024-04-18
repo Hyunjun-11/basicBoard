@@ -4,9 +4,10 @@ import Create from "./pages/Create";
 import Home from "./pages/Home";
 import Info from "./pages/Info";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Board from "./exam/Board";
 import SignUp from "./exam/SignUp";
+import Update from "./pages/Update";
 
 function App() {
   const [board, setBoard] = useState([]);
@@ -15,7 +16,8 @@ function App() {
   const boardItemGetId = (id) => {
     setId(id);
   };
-  const board2 = board.find((item) => item.id === id);
+
+  const boardInfo = board.find((item) => item.id === id);
 
   const onCreate = (data) => {
     const newBoard = {
@@ -43,8 +45,9 @@ function App() {
         <Route path="/" element={<Home data={board} getId={boardItemGetId} />} />
         <Route path="/board" element={<Board />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/info/:id" element={<Info data={board2} />}></Route>
+        <Route path="/info/:id" element={<Info data={boardInfo} />}></Route>
         <Route path="/create" element={<Create onCreate={onCreate} />}></Route>
+        <Route path="/update/:id" element={<Update />}></Route>
       </Routes>
     </>
   );

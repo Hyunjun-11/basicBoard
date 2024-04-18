@@ -1,10 +1,10 @@
 import "./Info.css";
 
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 const Info = ({ data }) => {
-  console.log(data);
-  console.log("data");
+  const navi = useNavigate();
 
   return (
     <div className="Create">
@@ -22,7 +22,13 @@ const Info = ({ data }) => {
       </div>
       <div className="button">
         <Button type="DELETE" text="삭제하기" />
-        <Button type="PRIMARY" text="수정하기" />
+        <Button
+          type="PRIMARY"
+          text="수정하기"
+          onClick={() => {
+            navi(`/update/${data.id}`, { state: { data } });
+          }}
+        />
       </div>
     </div>
   );
