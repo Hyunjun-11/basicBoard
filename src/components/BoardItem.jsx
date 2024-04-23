@@ -1,8 +1,11 @@
 import "./BoardItem.css";
 
 import { useNavigate } from "react-router-dom";
+import { BoardIdContext } from "../App";
+import { useContext } from "react";
 
-const BoardItem = ({ id, title, content, date, getId }) => {
+const BoardItem = ({ id, title, content, date }) => {
+  const getId = useContext(BoardIdContext);
   const navigate = useNavigate();
   const clickHandler = (id) => {
     getId(id);

@@ -4,19 +4,10 @@ import Create from "./pages/Create";
 import Home from "./pages/Home";
 import Info from "./pages/Info";
 
-import { useRef, useState, useReducer } from "react";
+import { useRef, useState, useReducer, createContext } from "react";
 import Board from "./exam/Board";
 import SignUp from "./exam/SignUp";
 import Update from "./pages/Update";
-
-const data = [
-  {
-    id: 1,
-    title: "제목",
-    date: "2024-04-04",
-    content: "내용",
-  },
-];
 
 function test(state, action) {
   switch (action.type) {
@@ -26,19 +17,29 @@ function test(state, action) {
       return state.map((item) => (item.id === action.id ? action.data : item));
     case "DELETE":
       return state.filter((item) => item.id !== action.id);
+    case "SEARCH":
+      console.log(action.data.str);
+      if (action.data.str === "") return state;
+      return state.filter((item) => String(item.title).includes(String(action.data.str)));
     default:
       return state;
   }
 }
 
+export const BoardStateContext = createContext();
+export const BoardIdContext = createContext();
+
 function App() {
   const [board, dispatch] = useReducer(test, []);
+
+  const [id, setId] = useState();
+  const idRef = useRef(1);
 
   const onCreate = (data) => {
     dispatch({
       type: "CREATE",
       data: {
-        id: board.length + 1,
+        id: idRef.current++,
         title: data.title,
         content: data.content,
         date: data.date,
@@ -49,7 +50,10 @@ function App() {
     dispatch({
       type: "UPDATE",
       data: {
-        data,
+        id: data.id,
+        title: data.title,
+        content: data.content,
+        date: data.date,
       },
     });
   };
@@ -61,7 +65,12 @@ function App() {
     });
   };
 
-  const [id, setId] = useState();
+  const onSearch = (str) => {
+    dispatch({
+      type: "SEARCH",
+      data: { str },
+    });
+  };
 
   const boardItemGetId = (id) => {
     setId(id);
@@ -71,14 +80,18 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home data={board} getId={boardItemGetId} />} />
-        <Route path="/board" element={<Board />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/info/:id" element={<Info data={boardInfo} />}></Route>
-        <Route path="/create" element={<Create onCreate={onCreate} />}></Route>
-        <Route path="/update/:id" element={<Update />}></Route>
-      </Routes>
+      <BoardStateContext.Provider value={board}>
+        <BoardIdContext.Provider value={boardItemGetId}>
+          <Routes>
+            <Route path="/" element={<Home onSearch={onSearch} />} />
+            <Route path="/board" element={<Board />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/info/:id" element={<Info data={boardInfo} />}></Route>
+            <Route path="/create" element={<Create onCreate={onCreate} />}></Route>
+            <Route path="/update/:id" element={<Update />}></Route>
+          </Routes>
+        </BoardIdContext.Provider>
+      </BoardStateContext.Provider>
     </>
   );
 }
